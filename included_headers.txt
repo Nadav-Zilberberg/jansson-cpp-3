@@ -1,0 +1,14 @@
+#include "dtoa.c
+#include "errno.h
+#include "float.h
+#include "hashtable.h
+#include "jansson.h
+#include "jansson_private.h
+#include "locale.h
+#include "lookup3.h
+#include "math.h
+#include "stdio.h
+#include "stdlib.h
+#include "strbuffer.h
+#include "string.h
+#include "utf.h
