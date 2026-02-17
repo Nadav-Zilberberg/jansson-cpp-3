@@ -18,11 +18,11 @@ int main() {
     assert(json_object_set(obj, "bool_value", bool_val) == 0);
     
     // Add integer
-    json_t* int_val = json_integer(42);
+    json_t* int_val = json_number(42);
     assert(json_object_set(obj, "int_value", int_val) == 0);
     
     // Add real
-    json_t* real_val = json_real(3.14159);
+    json_t* real_val = json_number(3.14159);
     assert(json_object_set(obj, "real_value", real_val) == 0);
     
     // Add string
@@ -31,8 +31,8 @@ int main() {
     
     // Add array
     json_t* arr_val = json_array();
-    json_t* arr_elem1 = json_integer(1);
-    json_t* arr_elem2 = json_integer(2);
+    json_t* arr_elem1 = json_number(1);
+    json_t* arr_elem2 = json_number(2);
     assert(json_array_append(arr_val, arr_elem1) == 0);
     assert(json_array_append(arr_val, arr_elem2) == 0);
     assert(json_object_set(obj, "array_value", arr_val) == 0);
@@ -56,11 +56,11 @@ int main() {
     assert(json_boolean_value(value) == 1);
     
     value = json_object_get(obj, "int_value");
-    assert(json_is_integer(value) == 1);
-    assert(json_integer_value(value) == 42);
+    assert(json_is_number(value) == 1);
+    assert(json_number_value(value) == 42);
     
     value = json_object_get(obj, "real_value");
-    assert(json_is_real(value) == 1);
+    assert(json_is_number(value) == 1);
     
     value = json_object_get(obj, "str_value");
     assert(json_is_string(value) == 1);

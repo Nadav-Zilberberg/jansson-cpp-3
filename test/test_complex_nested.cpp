@@ -11,7 +11,7 @@ int main() {
     
     // Add simple values
     json_object_set(root, "name", json_string("Root Object"));
-    json_object_set(root, "version", json_integer(1));
+    json_object_set(root, "version", json_number(1));
     json_object_set(root, "active", json_boolean(1));
     
     // Add array of objects
@@ -20,9 +20,9 @@ int main() {
         json_t* item = json_object();
         char key[20];
         sprintf(key, "item_%d", i);
-        json_object_set(item, "id", json_integer(i));
+        json_object_set(item, "id", json_number(i));
         json_object_set(item, "name", json_string(key));
-        json_object_set(item, "value", json_real(i * 1.5));
+        json_object_set(item, "value", json_number(i * 1.5));
         json_array_append(items_array, item);
     }
     json_object_set(root, "items", items_array);
@@ -30,7 +30,7 @@ int main() {
     // Add nested object with array
     json_t* config = json_object();
     json_object_set(config, "enabled", json_boolean(1));
-    json_object_set(config, "timeout", json_integer(30));
+    json_object_set(config, "timeout", json_number(30));
     
     json_t* tags = json_array();
     json_array_append(tags, json_string("tag1"));

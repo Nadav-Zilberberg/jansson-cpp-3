@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <string>
+#include <cstring>
 #include "json_c_api.hpp"
 
 int main() {
@@ -16,7 +17,7 @@ int main() {
     std::cout << "Large JSON string size: " << large_json_str.size() << " bytes" << std::endl;
     
     // Parse the large JSON string
-    json_error_t error;
+    json_error_code error;
     json_t* json = json_loads(large_json_str.c_str(), 0, &error);
     assert(json != nullptr);
     assert(json_is_object(json) == 1);

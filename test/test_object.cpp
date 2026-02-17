@@ -15,7 +15,7 @@ int main() {
     
     // Test adding key-value pairs
     json_t* name = json_string("John");
-    json_t* age = json_integer(30);
+    json_t* age = json_number(30);
     json_t* is_active = json_boolean(1);
     
     assert(json_object_set(obj, "name", name) == 0);
@@ -33,8 +33,8 @@ int main() {
     
     value = json_object_get(obj, "age");
     assert(value != nullptr);
-    assert(json_is_integer(value) == 1);
-    assert(json_integer_value(value) == 30);
+    assert(json_is_number(value) == 1);
+    assert(json_number_value(value) == 30);
     
     value = json_object_get(obj, "is_active");
     assert(value != nullptr);

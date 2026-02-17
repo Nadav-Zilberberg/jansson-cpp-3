@@ -12,7 +12,7 @@ int main() {
     
     // Test setting and getting values
     json_t* name = json_string("John");
-    json_t* age = json_integer(30);
+    json_t* age = json_number(30);
     
     assert(json_object_set(obj, "name", name) == 0);
     assert(json_object_set(obj, "age", age) == 0);
@@ -25,7 +25,7 @@ int main() {
     
     value = json_object_get(obj, "age");
     assert(value != nullptr);
-    assert(json_integer_value(value) == 30);
+    assert(json_number_value(value) == 30);
     
     // Test updating values
     json_t* new_name = json_string("Jane");

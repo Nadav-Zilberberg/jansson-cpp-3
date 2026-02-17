@@ -11,7 +11,7 @@ int main() {
     json_t* outer_obj = json_object();
     
     json_t* inner_name = json_string("Inner Name");
-    json_t* inner_value = json_integer(123);
+    json_t* inner_value = json_number(123);
     
     assert(json_object_set(inner_obj, "name", inner_name) == 0);
     assert(json_object_set(inner_obj, "value", inner_value) == 0);
@@ -22,8 +22,8 @@ int main() {
     json_t* inner_array = json_array();
     json_t* outer_array = json_array();
     
-    json_t* arr_elem1 = json_integer(1);
-    json_t* arr_elem2 = json_integer(2);
+    json_t* arr_elem1 = json_number(1);
+    json_t* arr_elem2 = json_number(2);
     
     assert(json_array_append(inner_array, arr_elem1) == 0);
     assert(json_array_append(inner_array, arr_elem2) == 0);

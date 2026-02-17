@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <string>
+#include <cstring>
 #include "json_c_api.hpp"
 
 int main() {
@@ -11,7 +12,7 @@ int main() {
     assert(arr != nullptr);
     
     for (int i = 0; i < 1000; i++) {
-        json_t* elem = json_integer(i);
+        json_t* elem = json_number(i);
         assert(json_array_append(arr, elem) == 0);
     }
     
@@ -19,13 +20,13 @@ int main() {
     
     // Verify some elements
     json_t* elem = json_array_get(arr, 0);
-    assert(json_integer_value(elem) == 0);
+    assert(json_number_value(elem) == 0);
     
     elem = json_array_get(arr, 500);
-    assert(json_integer_value(elem) == 500);
+    assert(json_number_value(elem) == 500);
     
     elem = json_array_get(arr, 999);
-    assert(json_integer_value(elem) == 999);
+    assert(json_number_value(elem) == 999);
     
     // Test serialization of large array
     char* arr_str = json_dumps(arr, 0);

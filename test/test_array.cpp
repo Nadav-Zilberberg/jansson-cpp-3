@@ -14,9 +14,9 @@ int main() {
     assert(json_array_size(arr) == 0);
     
     // Test adding elements
-    json_t* int1 = json_integer(1);
-    json_t* int2 = json_integer(2);
-    json_t* int3 = json_integer(3);
+    json_t* int1 = json_number(1);
+    json_t* int2 = json_number(2);
+    json_t* int3 = json_number(3);
     
     assert(json_array_append(arr, int1) == 0);
     assert(json_array_size(arr) == 1);
@@ -28,15 +28,15 @@ int main() {
     // Test getting elements
     json_t* elem = json_array_get(arr, 0);
     assert(elem != nullptr);
-    assert(json_integer_value(elem) == 1);
+    assert(json_number_value(elem) == 1);
     
     elem = json_array_get(arr, 1);
     assert(elem != nullptr);
-    assert(json_integer_value(elem) == 2);
+    assert(json_number_value(elem) == 2);
     
     elem = json_array_get(arr, 2);
     assert(elem != nullptr);
-    assert(json_integer_value(elem) == 3);
+    assert(json_number_value(elem) == 3);
     
     // Test serialization
     char* arr_str = json_dumps(arr, 0);

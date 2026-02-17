@@ -190,6 +190,47 @@ int json_array_append(json_t* json, json_t* value) {
     }
 }
 
+int json_array_insert(json_t* json, json_t* value, size_t index) {
+    if (!json || !json->value || !json->value->is_array() || !value || !value->value) {
+        return JSON_ERROR_INVALID_ARGUMENT;
+    }
+    
+    try {
+        static_cast<jansson::JsonArray*>(json->value.get())->insert(index, value->value);
+        return JSON_ERROR_SUCCESS;
+    } catch (...) {
+        return JSON_ERROR_MEMORY_ALLOCATION_FAILED;
+    }
+}
+
+int json_array_remove(json_t* json, size_t index) {
+    if (!json || !json->value || !json->value->is_array()) {
+        return JSON_ERROR_INVALID_ARGUMENT;
+    }
+    
+    try {
+        static_cast<jansson::JsonArray*>(json->value.get())->remove(index);
+        return JSON_ERROR_SUCCESS;
+    } catch (const std::out_of_range&) {
+        return JSON_ERROR_INDEX_OUT_OF_BOUNDS;
+    } catch (...) {
+        return JSON_ERROR_UNKNOWN_ERROR;
+    }
+}
+
+int json_array_clear(json_t* json) {
+    if (!json || !json->value || !json->value->is_array()) {
+        return JSON_ERROR_INVALID_ARGUMENT;
+    }
+    
+    try {
+        static_cast<jansson::JsonArray*>(json->value.get())->clear();
+        return JSON_ERROR_SUCCESS;
+    } catch (...) {
+        return JSON_ERROR_UNKNOWN_ERROR;
+    }
+}
+
 // Object operations
 int json_object_set(json_t* json, const char* key, json_t* value) {
     if (!json || !json->value || !json->value->is_object() || !key || !value || !value->value) {
@@ -211,6 +252,19 @@ int json_object_del(json_t* json, const char* key) {
     
     try {
         static_cast<jansson::JsonObject*>(json->value.get())->erase(key);
+        return JSON_ERROR_SUCCESS;
+    } catch (...) {
+        return JSON_ERROR_UNKNOWN_ERROR;
+    }
+}
+
+int json_object_clear(json_t* json) {
+    if (!json || !json->value || !json->value->is_object()) {
+        return JSON_ERROR_INVALID_ARGUMENT;
+    }
+    
+    try {
+        static_cast<jansson::JsonObject*>(json->value.get())->clear();
         return JSON_ERROR_SUCCESS;
     } catch (...) {
         return JSON_ERROR_UNKNOWN_ERROR;

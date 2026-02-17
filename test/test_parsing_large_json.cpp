@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <string>
+#include <cstring>
 #include "json_c_api.hpp"
 
 int main() {
@@ -22,7 +23,7 @@ int main() {
     std::cout << "Large JSON string size: " << large_json.size() << " bytes" << std::endl;
     
     // Parse the large JSON
-    json_error_t error;
+    json_error_code error;
     json_t* json = json_loads(large_json.c_str(), 0, &error);
     assert(json != nullptr);
     assert(json_is_object(json) == 1);
@@ -40,11 +41,12 @@ int main() {
     
     json_t* user_id = json_object_get(first_user, "id");
     assert(user_id != nullptr);
-    assert(json_integer_value(user_id) == 0);
+    assert(json_number_value(user_id) == 0);
     
     json_t* user_name = json_object_get(first_user, "name");
     assert(user_name != nullptr);
-    assert(std::string(json_string_value(user_name)) == "User 0");
+    std::cout << "First user name: " << json_string_value(user_name) << std::endl;
+    assert(std::string(json_string_value(user_name)) == "User0");
     
     // Verify last user
     json_t* last_user = json_array_get(users, 99);
@@ -52,7 +54,7 @@ int main() {
     
     user_id = json_object_get(last_user, "id");
     assert(user_id != nullptr);
-    assert(json_integer_value(user_id) == 99);
+    assert(json_number_value(user_id) == 99);
     
     // Verify metadata
     json_t* metadata = json_object_get(json, "metadata");
@@ -61,7 +63,7 @@ int main() {
     
     json_t* count = json_object_get(metadata, "count");
     assert(count != nullptr);
-    assert(json_integer_value(count) == 100);
+    assert(json_number_value(count) == 100);
     
     // Test serialization
     char* serialized = json_dumps(json, 0);

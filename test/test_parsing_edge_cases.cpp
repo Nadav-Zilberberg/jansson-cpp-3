@@ -6,7 +6,7 @@
 int main() {
     std::cout << "Running test_parsing_edge_cases..." << std::endl;
     
-    json_error_t error;
+    json_error_code error;
     
     // Test parsing empty object
     json_t* json = json_loads("{}", 0, &error);
@@ -45,21 +45,21 @@ int main() {
     // Test parsing zero
     json = json_loads("0", 0, &error);
     assert(json != nullptr);
-    assert(json_is_integer(json) == 1);
-    assert(json_integer_value(json) == 0);
+    assert(json_is_number(json) == 1);
+    assert(json_number_value(json) == 0);
     json_delete(json);
     
     // Test parsing negative number
     json = json_loads("-42", 0, &error);
     assert(json != nullptr);
-    assert(json_is_integer(json) == 1);
-    assert(json_integer_value(json) == -42);
+    assert(json_is_number(json) == 1);
+    assert(json_number_value(json) == -42);
     json_delete(json);
     
     // Test parsing floating point
     json = json_loads("3.14159", 0, &error);
     assert(json != nullptr);
-    assert(json_is_real(json) == 1);
+    assert(json_is_number(json) == 1);
     json_delete(json);
     
     // Test parsing empty string
