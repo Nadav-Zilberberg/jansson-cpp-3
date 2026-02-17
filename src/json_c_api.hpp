@@ -69,10 +69,14 @@ json_t* json_object_get(const json_t* json, const char* key);
 
 // Array operations
 int json_array_append(json_t* json, json_t* value);
+int json_array_insert(json_t* json, json_t* value, size_t index);
+int json_array_remove(json_t* json, size_t index);
+int json_array_clear(json_t* json);
 
 // Object operations
 int json_object_set(json_t* json, const char* key, json_t* value);
 int json_object_del(json_t* json, const char* key);
+int json_object_clear(json_t* json);
 
 // Parsing
 json_t* json_loads(const char* input, size_t flags, json_error_code* error);

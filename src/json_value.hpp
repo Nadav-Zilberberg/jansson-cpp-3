@@ -166,6 +166,21 @@ public:
     void push_back(std::shared_ptr<JsonValue> value) {
         values_.push_back(std::move(value));
     }
+    void insert(size_t index, std::shared_ptr<JsonValue> value){
+        if (index > values_.size()) {
+            throw std::out_of_range("Index out of bounds");
+        }
+        values_.insert(values_.begin() + index, std::move(value));
+    }
+    void remove(size_t index) {
+        if (index >= values_.size()) {
+            throw std::out_of_range("Index out of bounds");
+        }
+        values_.erase(values_.begin() + index);
+    }
+    void clear() {
+        values_.clear();
+    }
     
     std::shared_ptr<JsonValue> at(size_t index) const;
     size_t size() const noexcept { return values_.size(); }
@@ -203,6 +218,7 @@ public:
     void erase(const std::string& key);
     size_t size() const noexcept { return values_.size(); }
     bool empty() const noexcept { return values_.empty(); }
+    void clear() { values_.clear(); }
     
     // Iterators
     auto begin() const { return values_.begin(); }

@@ -28,6 +28,17 @@ target_include_directories(jansson_cpp PUBLIC src)
 add_executable(example example.cpp)
 target_link_libraries(example jansson_cpp)
 
+# Find or add test files
+file(GLOB TEST_SOURCES "test/*.cpp")
+
+# Create test executables
+foreach(TEST_SOURCE ${TEST_SOURCES})
+    get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
+    add_executable(${TEST_NAME} ${TEST_SOURCE})
+    target_link_libraries(${TEST_NAME} jansson_cpp)
+    add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
+endforeach()
+
 # Install targets
 install(TARGETS jansson_cpp
         ARCHIVE DESTINATION lib
@@ -46,3 +57,6 @@ install(FILES src/json_error.hpp
               src/json_serializer.hpp
               src/json_c_api.hpp
         DESTINATION include/jansson)
+
+# Enable testing
+enable_testing()
